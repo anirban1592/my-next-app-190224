@@ -42,7 +42,7 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -51,7 +51,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -59,4 +59,7 @@ jobs:
           app-name: 'my-next-project'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B3A7A81779E041F5A946FC3B875CC486 }}
+          publish-profile:
+            ${{
+            secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B3A7A81779E041F5A946FC3B875CC486
+            }}
